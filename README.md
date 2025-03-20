@@ -162,8 +162,8 @@
     {
         "data":{
             "uuid":"%.*%",
-            "first_name":Rachel,
-            "last_name":Doe,
+            "first_name":"Rachel",
+            "last_name":"Doe",
             "email":"rachel.doe@example.com",
             "job_title": null,
             "last_login_at": null,
