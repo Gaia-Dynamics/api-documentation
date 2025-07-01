@@ -1369,6 +1369,149 @@
   }
   ```
 
+## Classify Product Tariff Code **autonomous-mode** 
+**Description**: Classifies a product based on detailed information, returning a tariff code, reasoning, confidence level, and applicable rulings.  
+**Method**: POST  
+**Endpoint**: `/product/classification/tariff-code/autonomous`  
+
+**Request Headers**:
+- Content-Type: application/json  
+- Authorization: token  
+
+**Request Body Example**:
+```json
+{
+  "input": {
+    "name": "T-shirt",
+    "description": "Man's T-shirt of 100% coton"
+  }
+}
+```
+
+**Responses**:
+
+- **Description**: Tariff code classification result with rationale and supporting rulings  
+  **HTTP Code**: 200  
+
+  **Example Response Body**:
+  ```json
+  {
+    "data": {
+      "reasoning": [
+        "The product is a men's knitted T-shirt made of 100% cotton with a full front zipper opening and short sleeves with crew/round neck.",
+        "The presence of a full front zipper opening is a key distinguishing feature that makes this different from a standard T-shirt.",
+        "While heading 6109 covers T-shirts, the full front zipper opening is not typical of garments in this heading, which generally have no fastenings.",
+        "The garment more closely resembles sweaters, pullovers or similar articles with front openings in heading 6110.",
+        "The knitted construction places it in Chapter 61 rather than Chapter 62 (which includes heading 6205)."
+      ],
+      "suggested_description": "Men's knitted T-shirt made of 100% cotton with full front zipper opening, short sleeves, and crew/round neckline",
+      "best_guess_code": "6110.20.20.69",
+      "confidence": "MEDIUM",
+      "rulings": [
+        {
+          "ruling_number": "952530",
+          "url": "https://rulings.cbp.gov/ruling/952530",
+          "subject": "Women's knit garment; long, close fitting sleeves; classifiable as similar to a T-shirt; heading 6109, HTSUSA",
+          "ruling_content": "facts : the pullover portion of style 1031757 is described as a t - shirt styled pullover, size medium, constructed of jersey fabric, with a rounded close - fitting neckline and narrow long sleeves. [...]",
+          "hts_numbers": [
+            "6109.10.00.70"
+          ]
+        },
+        {
+          "ruling_number": "954560",
+          "url": "https://rulings.cbp.gov/ruling/954560",
+          "subject": "Classification of women's upper body garments which do not reach the waist; proper heading is 6114, HTSUSA, as an other garment",
+          "ruling_content": "facts : styles 5358 and 5458 are knit short sleeve tops constructed from 95 percent cotton and 5 percent spandex fabric. [...]",
+          "hts_numbers": [
+            "6114.20.00.10"
+          ]
+        },
+        {
+          "ruling_number": "m86915",
+          "url": "https://rulings.cbp.gov/ruling/m86915",
+          "subject": "The tariff classification of five women's garments from Guatemala.Dear Mr. Scharpf:",
+          "ruling_content": "style 30701 is a woman ' s t - shirt constructed of lightweight 100 % cotton knit fabric. [...]",
+          "hts_numbers": [
+            "6106.10.00.10",
+            "6109.10.00.40",
+            "6109.10.00.70",
+            "6110.20.20.79"
+          ]
+        }
+      ],
+      "reflection_result": null,
+      "alternatives": [
+        {
+          "code": "6109.10.00.12",
+          "condition": "If the zipper is considered a decorative element rather than a functional opening feature",
+          "tariff_detail": {
+            "description_heading": [
+              "T-shirts, singlets, tank tops and similar garments, knitted or crocheted:",
+              "Of cotton",
+              "Men's or boys':",
+              "Other T-shirts:",
+              "Men's (338)"
+            ],
+            "description": "Men's (338)",
+            "units": [
+              "doz.",
+              "kg"
+            ],
+            "rate_of_duty": {
+              "general": "16.5%",
+              "special": "Free (AU,BH,CL,CO,IL,JO,KR,MA,OM,P,PA,PE,S,SG)",
+              "other": "90%"
+            }
+          }
+        },
+        {
+          "code": "6114.20.00.10",
+          "condition": "If considered a specialized knitted garment not covered by more specific headings",
+          "tariff_detail": {
+            "description_heading": [
+              "Other garments, knitted or crocheted:",
+              "Of cotton",
+              "Tops:",
+              "Women's or girls' (339)"
+            ],
+            "description": "Women's or girls' (339)",
+            "units": [
+              "doz.",
+              "kg"
+            ],
+            "rate_of_duty": {
+              "general": "10.8%",
+              "special": "Free (AU,BH,CL,CO,IL,JO,KR,MA,OM,P,PA,PE,S,SG)",
+              "other": "90%"
+            }
+          }
+        }
+      ],
+      "tariff_detail": {
+        "description_heading": [
+          "Sweaters, pullovers, sweatshirts, waistcoats (vests) and similar articles, knitted or crocheted:",
+          "Of cotton:",
+          "Other",
+          "Other:",
+          "Other:",
+          "Men's or boys':",
+          "Other (338)"
+        ],
+        "description": "Other (338)",
+        "units": [
+          "doz.",
+          "kg"
+        ],
+        "rate_of_duty": {
+          "general": "16.5%",
+          "special": "Free (AU,BH,CL,CO,IL,JO,KR,MA,OM,P,PA,PE,S,SG)",
+          "other": "50%"
+        }
+      }
+    }
+  }
+  ```
+
 ## Upload Product Bulk File  
 **Description**: Upload a CSV file containing product data in bulk for processing.  
 **Method**: POST  
